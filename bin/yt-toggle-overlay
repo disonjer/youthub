@@ -1,0 +1,33 @@
+#!/bin/sh
+# Hide / show the YouTube ffplay window. With dwm + floating + alwaysontop,
+# the player sits permanently over kitty, so a "z-order swap" via raise is
+# a no-op. The real toggle is map/unmap — first press hides ffplay so the
+# grid (in kitty underneath) becomes fully visible; second press brings the
+# video back. Audio keeps playing throughout because the process is alive.
+
+export DISPLAY="${DISPLAY:-:0}"
+
+FFPLAY=$(xdotool search --class ffplay 2>/dev/null | tail -1)
+[ -z "$FFPLAY" ] && FFPLAY=$(xdotool search --name 'YouTube — ' 2>/dev/null | tail -1)
+if [ -z "$FFPLAY" ]; then
+    echo "[toggle] no ffplay window" >&2
+    exit 0
+fi
+
+# IsViewable = window is mapped + ancestors mapped (i.e. actually shown)
+STATE=$(xwininfo -id "$FFPLAY" 2>/dev/null | awk '/Map State/ {print $3}')
+
+case "$STATE" in
+    IsViewable)
+        echo "[toggle] ffplay $FFPLAY → unmapping (hide)" >&2
+        xdotool windowunmap "$FFPLAY"
+        # Move focus to the grid terminal so keyboard input is useful.
+        KITTY=$(xdotool search --class kitty 2>/dev/null | tail -1)
+        [ -n "$KITTY" ] && xdotool windowactivate "$KITTY"
+        ;;
+    *)
+        echo "[toggle] ffplay $FFPLAY (state=$STATE) → mapping (show)" >&2
+        xdotool windowmap "$FFPLAY"
+        xdotool windowactivate "$FFPLAY"
+        ;;
+esac

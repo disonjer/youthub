@@ -1,0 +1,17 @@
+{
+  "name": "yt-player-bridge",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Node-side SABR stream bridge for the youthub TUI player",
+  "dependencies": {
+    "bgutils-js": "^3.2.0",
+    "canvas": "^3.2.3",
+    "googlevideo": "^4.0.4",
+    "jsdom": "^29.1.1",
+    "youtubei.js": "^17.0.1"
+  },
+  "scripts": {
+    "postinstall": "node scripts/patch_googlevideo.mjs"
+  }
+}

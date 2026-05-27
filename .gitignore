@@ -1,0 +1,41 @@
+# Runtime caches and credentials
+cache/
+*.pyc
+__pycache__/
+
+# Node
+node_modules/
+.npm-cache/
+package-lock.json
+
+# Python venv
+.venv/
+
+# Playwright browsers
+.playwright/
+
+# ffplay-yt build artifacts
+ffplay-yt/bin/
+ffplay-yt/src/
+ffplay-yt/local_tools/
+ffplay-yt/*.tar.xz
+ffplay-yt/*.dsc
+ffplay-yt/*.asc
+ffplay-yt/*.deb
+ffplay-yt/config.h
+
+# Bundled tools
+tools/
+
+# Debug dumps
+dump/
+
+# IDE / editor
+.claude/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,5 @@
+#!/bin/sh
+# Hard-close any running ffplay window. Bind to a dwm key as a
+# guaranteed "close video" — handy when X11 focus is on the wrong
+# window so ffplay's built-in `q` doesn't reach it.
+exec pkill -x ffplay
